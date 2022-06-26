@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Joke Teller</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+</head>
+<body>
+
+<!--Default container-->
+<div class="container " id="joke-container">
+    <button id="joke-button">Tell Me A Joke</button>
+    <button id="custom-button">Tell Your Own Joke/Text</button>
+</div>
+
+
+<!--Select voice options-->
+<div class="custom-container hide" id="user-container">
+    <label for="voice-select">Select A Voice</label>
+    <select class="voice-select-menu" id="voice-select">
+
+    </select>
+    <div class="controls">
+        <div class="volume">
+            <label for="Volume">Volume</label>
+            <input type="range" min="0" max="1" value="1" step="0.1" id="Volume"/>
+        </div>
+        <div class="rate">
+            <label for="Rate">Rate</label>
+            <input type="range" min="0" max="1" value="1" step="0.1" id="Rate"/>
+        </div>
+        <div class="pitch">
+            <label for="Pitch">Pitch</label>
+            <input type="range" min="0" max="2" value="1" step="0.1" id="Pitch"/>
+        </div>
+
+    </div>
+    <textarea class="custom-text" id="input-text" cols="30" rows="10" placeholder="Type here...Then press Play!"></textarea>
+    <div class="buttons">
+        <button id="play-btn">Play</button>
+        <button id="pause-btn">Pause</button>
+        <button id="resume-btn">Resume</button>
+        <button id="stop-btn">Stop</button>
+        <button id="back-btn">Back</button>
+    </div>
+
+</div>
+
+
+
+
+<!--script-->
+<script src="./script.js" type="text/javascript"></script>
+</body>
+</html>

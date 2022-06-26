@@ -1,0 +1,159 @@
+html{
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #45badd;
+}
+
+/*Voices select menu*/
+
+.custom-container {
+    width:100vw;
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-size: contain;
+    background: url(6013bcaa338cc.gif) no-repeat right center;
+}
+
+.voice-select-menu {
+    border: 1px solid #ff3482;
+    width:200px;
+    background-color: transparent;
+    padding: .375rem 1.75rem .375rem .75rem;
+    border-radius: 5px;
+    outline: none;
+}
+
+.voice-select-menu::after{
+    display: inline-block;
+
+}
+
+.voice-select-menu > option {
+    background: #45badd;
+}
+
+.controls{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+}
+
+label{
+    margin-top: 15px;
+    color: #ff3482;
+    font-weight: bold;
+    display: block;
+    width: 150px;
+    float: top;
+    padding: 5px;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+}
+
+input[type="range"] {
+    margin: auto;
+    -webkit-appearance: none;
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ff3482;
+}
+
+::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    background: black;
+    border-radius: 5px;
+
+}
+
+
+textarea{
+    margin-top: 15px;
+    background: transparent;
+    border: 1px solid #ff3482;
+    outline: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 20px 10px rgba(0,0,0,0.2)
+}
+
+textarea::placeholder {
+    color: black;
+
+}
+
+.buttons{
+    margin-top: 15px;
+}
+.container{
+    width:100vw;
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-size: contain;
+    background: url(6013bcaa338cc.gif) no-repeat left center;
+}
+
+
+button{
+    margin-top:5px;
+    cursor:pointer;
+    outline: none;
+    width:200px;
+    height:50px;
+    font-family: "Courier New", "Courier", monospace;
+    color:white;
+    background: #ff3482;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 20px 10px rgba(0,0,0,0.2)
+}
+
+button:hover{
+    filter: brightness(95%)
+}
+
+button:active{
+    transform: scale(0.98)
+}
+
+button:disabled{
+    cursor: default;
+    filter: brightness(30%)
+}
+
+.hide{
+    display: none;
+}
+
+/*media query tablet or smaller*/
+@media screen and (max-width: 1000px){
+    .container, .custom-container{
+        background-position: center center;
+        background-size: cover;
+    }
+
+    button{
+        box-shadow: 5px 5px 30px 20px rgba(0,0,0, 0.5)
+    }
+
+    .buttons{
+        display: flex;
+    }
+}
