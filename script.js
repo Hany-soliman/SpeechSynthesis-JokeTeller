@@ -27,7 +27,7 @@ const pitch = document.getElementById('Pitch')
 
 
 //Fetch all voices and populate the dropDown
-initVoices = async () => {
+const initVoices = async () => {
     const getVoices = () => {
         return new Promise(resolve => {
             window.speechSynthesis.onvoiceschanged = e => {
@@ -43,7 +43,7 @@ initVoices = async () => {
 
 //Fetch Joke
 
-getJoke = async () => {
+const getJoke = async () => {
     const apiURL = 'https://v2.jokeapi.dev/joke/Any'
     let joke
     try {
@@ -64,7 +64,7 @@ getJoke = async () => {
 
 //Send the joke to the Speech API
 
-tellMeAJoke = (joke) => {
+const tellMeAJoke = (joke) => {
     speech.lang = 'en'
     speech.voice = voices[1]
     speech.volume = volumeLevel
@@ -87,7 +87,7 @@ tellMeAJoke = (joke) => {
 
 
 //Grab the voice object
-getVoice = (name, arr) => {
+const getVoice = (name, arr) => {
     for (const voice of arr) {
         if (name === voice.name) {
             return selectedVoice = voice
@@ -96,7 +96,7 @@ getVoice = (name, arr) => {
 }
 
 
-play = () => {
+const play = () => {
     if (!synth.speaking) {
         speech.lang = 'en'
         speech.text = addedText.value
@@ -110,22 +110,22 @@ play = () => {
     }
 }
 
-showCustomContainer = () => {
+const showCustomContainer = () => {
     jokeContainer.classList.add('hide')
     customContainer.classList.remove('hide')
 }
 
-showJokeContainer = () => {
+const showJokeContainer = () => {
     jokeContainer.classList.remove('hide')
     customContainer.classList.add('hide')
 }
 
-checkSelectedVoice = (e) => {
+const checkSelectedVoice = (e) => {
     getVoice(e.target.value, voices)
 }
 
-disableJokeBtn = () => jokeBtn.disabled = true
-enableJokeBtn = () => jokeBtn.disabled = false
+const disableJokeBtn = () => jokeBtn.disabled = true
+const enableJokeBtn = () => jokeBtn.disabled = false
 
 //Event Listeners
 jokeBtn.addEventListener('click', getJoke)
