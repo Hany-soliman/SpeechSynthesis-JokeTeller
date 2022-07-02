@@ -37,27 +37,33 @@ const initVoices = async () => {
     addDropdownOptions()
 };
 
-const loadVoicesWhenAvailable = (onComplete = () => {})=> {
+//Fallback for IOS devices
+
+const loadVoicesWhenAvailable = (onComplete = () => {
+}) => {
     const data = synth.getVoices()
     if (data.length !== 0) {
         voices = data
-        selectedVoice = voices[1]
+        selectedVoice = voices[0]
         addDropdownOptions()
         onComplete()
     } else {
-        return setTimeout(function () { loadVoicesWhenAvailable(onComplete) }, 100)
+        return setTimeout(function () {
+            loadVoicesWhenAvailable(onComplete)
+        }, 100)
     }
 }
 
+//Check if the device is IOS
+
 const ios = () => {
     if (typeof window === `undefined` || typeof navigator === `undefined`) return false;
-
     return /iPhone|iPad|iPod/i.test(navigator.userAgent || navigator.vendor || (window.opera && opera.toString() === `[object Opera]`));
 };
 
 //Create the dropDown
 
-const addDropdownOptions =()=>{
+const addDropdownOptions = () => {
     voicesMenu.innerHTML = voices.map(voice => {
         return `<option>${voice.name}</option>`
     }).join('')
@@ -70,14 +76,13 @@ const getJoke = async () => {
     try {
         const response = await fetch(apiURL)
         let data = await response.json()
-
         if (data.setup) {
             joke = [data.setup, data.delivery]
         } else {
             joke = data.joke
         }
         tellMeAJoke(joke)
-        disableJokeBtn()
+        disableBtns()
     } catch (e) {
         throw new Error(`Uh Oh! encountered an error: ${e}`)
     }
@@ -90,8 +95,7 @@ const tellMeAJoke = (joke) => {
     speech.volume = volumeLevel
     speech.rate = rateLevel
     speech.pitch = pitchLevel
-    speech.voiceURI = 'native'
-    if(ios){
+    if (ios) {
         speech.voice = voices[3]
     }
     speech.voice = voices[1]
@@ -122,18 +126,22 @@ const getVoice = (name, arr) => {
 
 
 const play = () => {
-    if (!synth.speaking) {
-        speech.lang = 'en'
-        speech.text = addedText.value
-        speech.voice = selectedVoice
-        speech.volume = volumeLevel
-        speech.rate = rateLevel
-        speech.pitch = pitchLevel
+    speech.lang = 'en-US'
+    speech.voice = selectedVoice
+    speech.volume = volumeLevel
+    speech.rate = rateLevel
+    speech.pitch = pitchLevel
+    if (!addedText.value) {
+        speech.text = 'Add text to hear it back!'
         synth.speak(speech)
-    } else {
-        alert(`You already have a speech playing. Click "Resume" to continue, or "Stop" to add new speech`)
+    }
+    if (!synth.speaking) {
+        speech.text = addedText.value
+        synth.speak(speech)
     }
 }
+
+//DOM Manipulation
 
 const showCustomContainer = () => {
     jokeContainer.classList.add('hide')
@@ -149,8 +157,14 @@ const checkSelectedVoice = (e) => {
     getVoice(e.target.value, voices)
 }
 
-const disableJokeBtn = () => jokeBtn.disabled = true
-const enableJokeBtn = () => jokeBtn.disabled = false
+const disableBtns = () => {
+    jokeBtn.disabled = true
+    playBtn.disabled = true
+}
+const enableBtns = () => {
+    jokeBtn.disabled = false
+    playBtn.disabled = false
+}
 
 //Event Listeners
 jokeBtn.addEventListener('click', getJoke)
@@ -176,15 +190,16 @@ rate.addEventListener('input', (e) => {
 pitch.addEventListener('input', (e) => {
     pitchLevel = +e.target.value
 })
-speech.addEventListener('end', enableJokeBtn)
-speech.addEventListener('start', disableJokeBtn)
+speech.addEventListener('end', enableBtns)
+speech.addEventListener('start', disableBtns)
 
 //onLoad
 
 initVoices().then(() => {
-    console.log('voices loaded successfully')})
+    console.log('voices loaded successfully')
+})
 
-if(ios){
+if (ios()) {
     loadVoicesWhenAvailable()
 }
 
