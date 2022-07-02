@@ -93,23 +93,22 @@ const getJoke = async () => {
 
 const tellMeAJoke = (joke) => {
     if (isIOS) {
-        const utterance = new window.SpeechSynthesisUtterance()
-        utterance.voice = selectedVoice
+        speech.voice = selectedVoice
         console.log(speech.voice)
         console.log(isIOS)
-        utterance.voiceURI = selectedVoice.voiceURI
-        utterance.lang = selectedVoice.lang
-        utterance.volume = volumeLevel
-        utterance.rate = rateLevel
-        utterance.pitch = pitchLevel
-        utterance.text = joke
-        synth.speak(utterance)
+        speech.voiceURI = selectedVoice.voiceURI
+        speech.lang = selectedVoice.lang
+        speech.volume = volumeLevel
+        speech.rate = rateLevel
+        speech.pitch = pitchLevel
+        synth.speak(speech)
+    } if(!isIOS){
+        speech.lang = 'en-US'
+        speech.volume = volumeLevel
+        speech.rate = rateLevel
+        speech.pitch = pitchLevel
+        speech.voice = voices[1]
     }
-    speech.lang = 'en-US'
-    speech.volume = volumeLevel
-    speech.rate = rateLevel
-    speech.pitch = pitchLevel
-    speech.voice = voices[1]
     if (Array.isArray(joke)) {
         jokeBtn.disabled = true
         speech.text = joke[0]
