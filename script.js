@@ -216,15 +216,14 @@ speech.addEventListener('end', enableBtns)
 
 
 //onLoad
-initVoices().then(() => {
-    console.log('voices loaded successfully')
-})
-
 if (ios()) {
     loadVoicesWhenAvailable()
     isIOS = true
     console.log('ios loaded successfully')
 }
+
+initVoices()
+
 
 // const firstTab = ()=>{
 //     if (iosFirstTab) {
