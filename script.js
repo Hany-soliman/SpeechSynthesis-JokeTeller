@@ -108,19 +108,7 @@ const checkJokeType = (joke, type) => {
 
 const tellMeAJoke = async () => {
     await getJoke()
-    if (iosFirstTab) {
-        console.log(iosFirstTab)
-        const initVoices = new SpeechSynthesisUtterance()
-        iosBtn.addEventListener('click', () => {
-            checkJokeType(joke, initVoices)
-            synth.speak(initVoices)
-        })
-        console.log(iosFirstTab)
-        iosBtn.remove()
-        iosFirstTab = false
-        jokeBtn.hidden = false
-        console.log(iosFirstTab)
-    }
+firstTab()
     if (isIOS) {
         const utterance = new SpeechSynthesisUtterance();
         utterance.voice = voices[10]
@@ -236,3 +224,19 @@ if (ios()) {
     iosBtn.hidden = false
 }
 
+const firstTab = ()=>{
+    if (iosFirstTab) {
+        console.log(iosFirstTab)
+        const initVoices = new SpeechSynthesisUtterance()
+        iosBtn.addEventListener('click', () => {
+            checkJokeType(joke, initVoices)
+            initVoices.addEventListener('start', disableBtns)
+            initVoices.addEventListener('end', enableBtns)
+        })
+        console.log(iosFirstTab)
+        iosBtn.remove()
+        iosFirstTab = false
+        jokeBtn.hidden = false
+        console.log(iosFirstTab)
+    }
+}
