@@ -28,6 +28,7 @@ const pitch = document.getElementById('Pitch')
 
 //Fetch all voices and populate the dropDown
 const initVoices = async () => {
+    console.log('initVoices called')
     const getVoices = () => {
         return new Promise(resolve => {
             synth.onvoiceschanged = e => {
@@ -222,7 +223,10 @@ if (ios()) {
     console.log('ios loaded successfully')
 }
 
-initVoices()
+
+initVoices().then(() => {
+    console.log('voices loaded successfully')
+})
 
 
 // const firstTab = ()=>{
