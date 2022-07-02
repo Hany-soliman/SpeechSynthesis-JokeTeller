@@ -195,7 +195,7 @@ const enableBtns = () => {
 
 //Event Listeners
 jokeBtn.addEventListener('click', tellMeAJoke)
-iosBtn.addEventListener('click', ()=>{
+iosBtn.addEventListener('click', async ()=>{
     const initIOS = new SpeechSynthesisUtterance();
     initIOS.voice = voices[10]
     initIOS.voiceURI = voices[10].voiceURI
@@ -203,8 +203,8 @@ iosBtn.addEventListener('click', ()=>{
     initIOS.volume = volumeLevel
     initIOS.rate = rateLevel
     initIOS.pitch = pitchLevel
-    initIOS.text = 'Hello there!'
-    synth.speak(initIOS)
+    await getJoke()
+    checkJokeType(joke, initIOS)
     initIOS.addEventListener('end', ()=>{
         iosBtn.hidden= true
         jokeBtn.hidden = false
