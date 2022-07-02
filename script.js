@@ -128,11 +128,11 @@ const disableJokeBtn = () => jokeBtn.disabled = true
 const enableJokeBtn = () => jokeBtn.disabled = false
 
 //Event Listeners
-jokeBtn.addEventListener('click', getJoke)
+// jokeBtn.addEventListener('click', getJoke)
 customBtn.addEventListener('click', showCustomContainer)
 backBtn.addEventListener('click', showJokeContainer)
 voicesMenu.addEventListener('change', checkSelectedVoice)
-playBtn.addEventListener('click', play)
+// playBtn.addEventListener('click', play)
 pauseBtn.addEventListener('click', () => {
     synth.pause()
 })
