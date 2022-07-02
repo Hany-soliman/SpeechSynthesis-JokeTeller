@@ -112,7 +112,7 @@ const tellMeAJoke = async () => {
         utterance.voice = voices[10]
         utterance.voiceURI = voices[10].voiceURI
         utterance.lang = voices[10].lang
-        utterance.text = ''
+        utterance.text = 'Add text to hear it back!'
         utterance.volume = volumeLevel
         utterance.rate = rateLevel
         utterance.pitch = pitchLevel
