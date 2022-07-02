@@ -225,7 +225,7 @@ initVoices().then(() => {
     console.log('voices loaded successfully')
 })
 
-if (ios() || android()) {
+if (ios()) {
     loadVoicesWhenAvailable()
     isIOS = true
     console.log('ios loaded successfully')
