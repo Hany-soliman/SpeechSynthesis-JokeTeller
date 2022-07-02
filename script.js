@@ -32,7 +32,7 @@ const initVoices = async () => {
     const getVoices = () => {
         return new Promise(resolve => {
             window.speechSynthesis.onvoiceschanged = e => {
-                resolve(voices = synth.getVoices(), selectedVoice = voices[0]);
+                resolve(voices = window.speechSynthesis.getVoices(), selectedVoice = voices[0]);
             }
         })
     }
