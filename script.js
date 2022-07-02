@@ -107,7 +107,6 @@ const checkJokeType = (joke, type) => {
 
 const tellMeAJoke = async () => {
     await getJoke()
-firstTab()
     if (isIOS) {
         const utterance = new SpeechSynthesisUtterance();
         utterance.voice = voices[10]
