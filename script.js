@@ -82,7 +82,6 @@ const getJoke = async () => {
         } else {
             joke = data.joke
         }
-        console.log(joke)
         tellMeAJoke(joke)
         disableBtns()
     } catch (e) {
@@ -93,17 +92,23 @@ const getJoke = async () => {
 //Send the joke to the Speech API
 
 const tellMeAJoke = (joke) => {
+    if (isIOS) {
+        const utterance = new window.SpeechSynthesisUtterance()
+        utterance.voice = selectedVoice
+        console.log(speech.voice)
+        console.log(isIOS)
+        utterance.voiceURI = selectedVoice.voiceURI
+        utterance.lang = selectedVoice.lang
+        utterance.volume = volumeLevel
+        utterance.rate = rateLevel
+        utterance.pitch = pitchLevel
+        utterance.text = joke
+        synth.speak(utterance)
+    }
     speech.lang = 'en-US'
     speech.volume = volumeLevel
     speech.rate = rateLevel
     speech.pitch = pitchLevel
-    console.log(isIOS)
-    if (isIOS) {
-        speech.voice = selectedVoice
-        console.log(speech.voice)
-        speech.voiceURI = selectedVoice.voiceURI
-        speech.lang = selectedVoice.lang
-    }
     speech.voice = voices[1]
     if (Array.isArray(joke)) {
         jokeBtn.disabled = true
