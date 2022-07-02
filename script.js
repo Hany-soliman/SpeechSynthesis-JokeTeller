@@ -66,7 +66,7 @@ const ios = () => {
 
 const checkJokeType = (joke, type)=>{
     if (Array.isArray(joke)) {
-        disableBtns()
+        jokeBtn.disabled = true
         type.text = joke[0]
         synth.speak(type)
         setTimeout(() => {
@@ -77,7 +77,6 @@ const checkJokeType = (joke, type)=>{
         type.text = joke
         synth.speak(type)
     }
-    enableBtns()
 }
 
 //Create the dropDown
@@ -100,7 +99,14 @@ const getJoke = async () => {
         } else {
             joke = data.joke
         }
+        console.log('before', joke)
+        if(isIOS){
+            console.log('after',joke)
+            setTimeout(() => 2000)
+            console.log('after buffer')
+        }
         tellMeAJoke(joke)
+        disableBtns()
     } catch (e) {
         throw new Error(`Uh Oh! encountered an error: ${e}`)
     }
