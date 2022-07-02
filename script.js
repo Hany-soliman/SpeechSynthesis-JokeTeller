@@ -115,10 +115,8 @@ const tellMeAJoke = async () => {
             checkJokeType(joke, initVoices)
             synth.speak(initVoices)
         })
-
         console.log(iosFirstTab)
-        synth.cancel()
-        iosBtn.hidden = true
+        iosBtn.remove()
         iosFirstTab = false
         jokeBtn.hidden = false
         console.log(iosFirstTab)
