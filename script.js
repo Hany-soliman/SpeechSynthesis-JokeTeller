@@ -206,10 +206,12 @@ iosBtn.addEventListener('click', async ()=>{
     checkJokeType(joke, initIOS)
     initIOS.addEventListener('start', ()=>{
         iosBtn.disabled = true
+        jokeBtn.disabled =true
     })
     initIOS.addEventListener('end', ()=>{
         iosBtn.hidden= true
         jokeBtn.hidden = false
+        jokeBtn.disabled =false
     })
 })
 customBtn.addEventListener('click', showCustomContainer)
