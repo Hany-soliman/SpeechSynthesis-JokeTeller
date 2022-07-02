@@ -62,6 +62,26 @@ const ios = () => {
     return /iPhone|iPad|iPod/i.test(navigator.userAgent || navigator.vendor || (window.opera && opera.toString() === `[object Opera]`));
 };
 
+//isIOS
+
+const checkDeviceType = ()=>{
+    if (isIOS) {
+        speech.voice = selectedVoice
+        speech.voiceURI = selectedVoice.voiceURI
+        speech.lang = selectedVoice.lang
+        speech.volume = volumeLevel
+        speech.rate = rateLevel
+        speech.pitch = pitchLevel
+        synth.speak(speech)
+    } else {
+        speech.lang = 'en-US'
+        speech.volume = volumeLevel
+        speech.rate = rateLevel
+        speech.pitch = pitchLevel
+        speech.voice = voices[1]
+    }
+}
+
 //Create the dropDown
 
 const addDropdownOptions = () => {
@@ -92,23 +112,7 @@ const getJoke = async () => {
 //Send the joke to the Speech API
 
 const tellMeAJoke = (joke) => {
-    if (isIOS) {
-        speech.voice = selectedVoice
-        console.log(speech.voice)
-        console.log(isIOS)
-        speech.voiceURI = selectedVoice.voiceURI
-        speech.lang = selectedVoice.lang
-        speech.volume = volumeLevel
-        speech.rate = rateLevel
-        speech.pitch = pitchLevel
-        synth.speak(speech)
-    } if(!isIOS){
-        speech.lang = 'en-US'
-        speech.volume = volumeLevel
-        speech.rate = rateLevel
-        speech.pitch = pitchLevel
-        speech.voice = voices[1]
-    }
+    checkDeviceType()
     if (Array.isArray(joke)) {
         jokeBtn.disabled = true
         speech.text = joke[0]
