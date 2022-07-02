@@ -111,6 +111,7 @@ const tellMeAJoke = async () => {
         const utterance = new SpeechSynthesisUtterance();
         utterance.text = 'Hello, You look beautiful today! Haha!'
         synth.speak(utterance)
+        return iosFirstTab = false
     }
     if (isIOS) {
         const utterance = new SpeechSynthesisUtterance();
