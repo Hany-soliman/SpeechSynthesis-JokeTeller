@@ -31,8 +31,8 @@ const initVoices = async () => {
     console.log('initVoices called')
     const getVoices = () => {
         return new Promise(resolve => {
-            window.speechSynthesis.onvoiceschanged = e => {
-                resolve(voices = window.speechSynthesis.getVoices(), selectedVoice = voices[0]);
+            synth.onvoiceschanged = e => {
+                resolve(voices = synth.getVoices(), selectedVoice = voices[0]);
             }
         })
     }
@@ -234,6 +234,9 @@ if (ios()) {
     loadVoicesWhenAvailable()
     isIOS = true
     console.log('ios loaded successfully')
+} else if(android()) {
+    loadVoicesWhenAvailable()
+    console.log('android loaded successfully')
 }
 
 
