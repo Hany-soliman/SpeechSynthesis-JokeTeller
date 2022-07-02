@@ -242,7 +242,7 @@ initVoices().then(() => {
 
 if (ios()) {
     loadVoicesWhenAvailable()
-    await getJoke()
+    getJoke()
     isIOS = true
     jokeBtn.hidden = true
     iosBtn.hidden = false
