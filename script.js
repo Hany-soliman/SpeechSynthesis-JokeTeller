@@ -13,6 +13,7 @@ let pitchLevel = 1;
 const jokeContainer = document.getElementById('joke-container')
 const customContainer = document.getElementById('user-container')
 const jokeBtn = document.getElementById('joke-button')
+const iosBtn = document.getElementById('joke-button-ios')
 const customBtn = document.getElementById('custom-button')
 const backBtn = document.getElementById('back-btn')
 const voicesMenu = document.getElementById('voice-select')
@@ -125,9 +126,6 @@ const tellMeAJoke = async () => {
             utterance.rate = rateLevel
             utterance.pitch = pitchLevel
             checkJokeType(joke, utterance)
-            utterance.addEventListener('error', (e) => {
-                console.log('Error', e.error )
-            })
             utterance.addEventListener('start', disableBtns)
             utterance.addEventListener('end', enableBtns)
         } else {
@@ -197,6 +195,20 @@ const enableBtns = () => {
 
 //Event Listeners
 jokeBtn.addEventListener('click', tellMeAJoke)
+iosBtn.addEventListener('click', ()=>{
+    const initIOS = new SpeechSynthesisUtterance();
+    initIOS.voice = voices[10]
+    initIOS.voiceURI = voices[10].voiceURI
+    initIOS.lang = voices[10].lang
+    initIOS.volume = volumeLevel
+    initIOS.rate = rateLevel
+    initIOS.pitch = pitchLevel
+    initIOS.text = 'Hello there!'
+    synth.speak(initIOS)
+    initIOS.addEventListener('end', ()=>{
+        iosBtn.hidden= true
+    })
+})
 customBtn.addEventListener('click', showCustomContainer)
 backBtn.addEventListener('click', showJokeContainer)
 voicesMenu.addEventListener('change', checkSelectedVoice)
@@ -231,6 +243,8 @@ initVoices().then(() => {
 if (ios()) {
     loadVoicesWhenAvailable()
     isIOS = true
+    jokeBtn.hidden = true
+    iosBtn.hidden = false
     console.log('ios loaded successfully')
 } else if(android()) {
     loadVoicesWhenAvailable()
