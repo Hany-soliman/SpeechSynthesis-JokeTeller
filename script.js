@@ -106,25 +106,31 @@ const checkJokeType = (joke, type) => {
 //Send the joke to the Speech API
 
 const tellMeAJoke = async () => {
-    await getJoke()
-    if (isIOS) {
-        const utterance = new SpeechSynthesisUtterance();
-        utterance.voice = voices[10]
-        utterance.voiceURI = voices[10].voiceURI
-        utterance.lang = voices[10].lang
-        utterance.volume = volumeLevel
-        utterance.rate = rateLevel
-        utterance.pitch = pitchLevel
-        checkJokeType(joke, utterance)
-        utterance.addEventListener('start', disableBtns)
-        utterance.addEventListener('end', enableBtns)
-    } else {
-        speech.lang = 'en-US'
-        speech.volume = volumeLevel
-        speech.rate = rateLevel
-        speech.pitch = pitchLevel
-        speech.voice = voices[1]
-        checkJokeType(joke, speech)
+    try{
+        await getJoke()
+        if (isIOS) {
+            const utterance = new SpeechSynthesisUtterance();
+            utterance.voice = voices[10]
+            utterance.voiceURI = voices[10].voiceURI
+            utterance.lang = voices[10].lang
+            utterance.volume = volumeLevel
+            utterance.rate = rateLevel
+            utterance.pitch = pitchLevel
+            checkJokeType(joke, utterance)
+            utterance.addEventListener('start', disableBtns)
+            utterance.addEventListener('end', enableBtns)
+        } else {
+            console.log(joke)
+            console.log(voices)
+            speech.lang = 'en-US'
+            speech.volume = volumeLevel
+            speech.rate = rateLevel
+            speech.pitch = pitchLevel
+            speech.voice = voices[1]
+            checkJokeType(joke, speech)
+        }
+    } catch (e) {
+        throw new Error(`Uh Oh! encountered an error: ${e}`)
     }
 }
 
@@ -217,21 +223,21 @@ initVoices().then(() => {
 if (ios()) {
     loadVoicesWhenAvailable()
     isIOS = true
-    iosFirstTab = true
+    console.log('ios loaded successfully')
 }
 
-const firstTab = ()=>{
-    if (iosFirstTab) {
-        console.log(iosFirstTab)
-        const initVoices = new SpeechSynthesisUtterance()
-        jokeBtn.addEventListener('click', () => {
-            checkJokeType(joke, initVoices)
-            initVoices.addEventListener('start', disableBtns)
-            initVoices.addEventListener('end', enableBtns)
-        })
-        console.log(iosFirstTab)
-        iosFirstTab = false
-        console.log(iosFirstTab)
-    }
-    return false
-}
+// const firstTab = ()=>{
+//     if (iosFirstTab) {
+//         console.log(iosFirstTab)
+//         const initVoices = new SpeechSynthesisUtterance()
+//         jokeBtn.addEventListener('click', () => {
+//             checkJokeType(joke, initVoices)
+//             initVoices.addEventListener('start', disableBtns)
+//             initVoices.addEventListener('end', enableBtns)
+//         })
+//         console.log(iosFirstTab)
+//         iosFirstTab = false
+//         console.log(iosFirstTab)
+//     }
+//     return false
+// }
