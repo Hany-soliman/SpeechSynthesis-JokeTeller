@@ -234,4 +234,5 @@ const firstTab = ()=>{
         iosFirstTab = false
         console.log(iosFirstTab)
     }
+    return false
 }
