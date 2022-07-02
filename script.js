@@ -30,13 +30,9 @@ const pitch = document.getElementById('Pitch')
 const initVoices = async () => {
     console.log('initVoices called')
     const getVoices = () => {
-        return new Promise((resolve, reject) => {
-            synth.onvoiceschanged = e => {
-                const data = synth.getVoices()
-                if (data.length !== 0){
-                    resolve(voices = synth.getVoices(), selectedVoice = voices[0]);
-                }
-                reject('Couldn\'t find voices')
+        return new Promise(resolve => {
+            window.speechSynthesis.onvoiceschanged = e => {
+                resolve(voices = synth.getVoices(), selectedVoice = voices[0]);
             }
         })
     }
@@ -45,7 +41,6 @@ const initVoices = async () => {
         console.log(voices)
         addDropdownOptions()
     } catch (e) {
-        loadVoicesWhenAvailable()
         throw new Error(`Uh Oh! encountered an error: ${e}`)
     }
 
