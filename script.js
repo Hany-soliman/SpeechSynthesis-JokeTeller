@@ -45,7 +45,7 @@ const loadVoicesWhenAvailable = (onComplete = () => {
     const data = synth.getVoices()
     if (data.length !== 0) {
         voices = data
-        selectedVoice = voices[0]
+        selectedVoice = voices[10]
         addDropdownOptions()
         onComplete()
     } else {
