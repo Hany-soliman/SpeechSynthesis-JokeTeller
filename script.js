@@ -221,6 +221,10 @@ speech.addEventListener('end', enableBtns)
 
 
 //onLoad
+initVoices().then(() => {
+    console.log('voices loaded successfully')
+})
+
 if (ios() || android()) {
     loadVoicesWhenAvailable()
     isIOS = true
@@ -228,9 +232,6 @@ if (ios() || android()) {
 }
 
 
-initVoices().then(() => {
-    console.log('voices loaded successfully')
-})
 
 
 // const firstTab = ()=>{
