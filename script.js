@@ -30,9 +30,13 @@ const pitch = document.getElementById('Pitch')
 const initVoices = async () => {
     console.log('initVoices called')
     const getVoices = () => {
-        return new Promise(resolve => {
+        return new Promise((resolve, reject) => {
             synth.onvoiceschanged = e => {
-                resolve(voices = window.speechSynthesis.getVoices(), selectedVoice = voices[0]);
+                const data = synth.getVoices()
+                if (data.length !== 0){
+                    resolve(voices = synth.getVoices(), selectedVoice = voices[0]);
+                }
+                reject('Couldn\'t find voices')
             }
         })
     }
