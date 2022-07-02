@@ -109,7 +109,13 @@ const tellMeAJoke = async () => {
     await getJoke()
     if(iosFirstTab){
         console.log('clicked')
-        const utterance = new SpeechSynthesisUtterance();
+        const utterance = new SpeechSynthesisUtterance()
+        utterance.voice = voices[10]
+        utterance.voiceURI = voices[10].voiceURI
+        utterance.lang = voices[10].lang
+        utterance.volume = volumeLevel
+        utterance.rate = rateLevel
+        utterance.pitch = pitchLevel
         utterance.text = 'Hello, You look beautiful today! Haha!'
         synth.speak(utterance)
         return iosFirstTab = false
