@@ -28,7 +28,6 @@ const pitch = document.getElementById('Pitch')
 
 //Fetch all voices and populate the dropDown
 const initVoices = async () => {
-    console.log('initVoices called')
     const getVoices = () => {
         return new Promise(resolve => {
             synth.onvoiceschanged = e => {
@@ -38,7 +37,6 @@ const initVoices = async () => {
     }
     try {
         await getVoices();
-        console.log(voices)
         addDropdownOptions()
     } catch (e) {
         throw new Error(`Uh Oh! encountered an error: ${e}`)
@@ -46,7 +44,7 @@ const initVoices = async () => {
 
 };
 
-//Fallback for IOS devices
+//Fallback for mobile devices
 
 const loadVoicesWhenAvailable = (onComplete = () => {
 }) => {
@@ -54,7 +52,6 @@ const loadVoicesWhenAvailable = (onComplete = () => {
     if (data.length !== 0) {
         voices = data
         selectedVoice = voices[0]
-        console.log('fallback for IOS devices', voices)
         addDropdownOptions()
         onComplete()
     } else {
@@ -64,7 +61,7 @@ const loadVoicesWhenAvailable = (onComplete = () => {
     }
 }
 
-//Check if the device is IOS
+//Check if mobile devices
 
 const ios = () => {
     if (typeof window === `undefined` || typeof navigator === `undefined`) return false;
@@ -128,11 +125,12 @@ const tellMeAJoke = async () => {
             utterance.rate = rateLevel
             utterance.pitch = pitchLevel
             checkJokeType(joke, utterance)
+            utterance.addEventListener('error', (e) => {
+                console.log('Error', e.error )
+            })
             utterance.addEventListener('start', disableBtns)
             utterance.addEventListener('end', enableBtns)
         } else {
-            console.log(joke)
-            console.log(voices)
             speech.lang = 'en-US'
             speech.volume = volumeLevel
             speech.rate = rateLevel
