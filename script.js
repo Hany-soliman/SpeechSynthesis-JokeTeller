@@ -36,9 +36,15 @@ const initVoices = async () => {
             }
         })
     }
-    await getVoices();
-    console.log(voices)
-    addDropdownOptions()
+    try {
+        await getVoices();
+        console.log(voices)
+        addDropdownOptions()
+    } catch (e) {
+        loadVoicesWhenAvailable()
+        throw new Error(`Uh Oh! encountered an error: ${e}`)
+    }
+
 };
 
 //Fallback for IOS devices
