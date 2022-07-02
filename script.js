@@ -87,11 +87,14 @@ const getJoke = async () => {
 
 const tellMeAJoke = (joke) => {
     speech.lang = 'en-US'
-    speech.voice = voices[1]
     speech.volume = volumeLevel
     speech.rate = rateLevel
     speech.pitch = pitchLevel
     speech.voiceURI = 'native'
+    if(ios){
+        speech.voice = voices[3]
+    }
+    speech.voice = voices[1]
     if (Array.isArray(joke)) {
         jokeBtn.disabled = true
         speech.text = joke[0]
