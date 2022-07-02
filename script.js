@@ -64,7 +64,6 @@ const ios = () => {
 };
 
 
-
 //Create the dropDown
 
 const addDropdownOptions = () => {
@@ -80,7 +79,7 @@ const getJoke = async () => {
         const response = await fetch(apiURL)
         let data = await response.json()
         if (data.setup) {
-            joke =  [data.setup, data.delivery]
+            joke = [data.setup, data.delivery]
         } else {
             joke = data.joke
         }
@@ -90,7 +89,7 @@ const getJoke = async () => {
 }
 //isIOS
 
-const checkJokeType =  (joke, type)=>{
+const checkJokeType = (joke, type) => {
     if (Array.isArray(joke)) {
         jokeBtn.disabled = true
         type.text = joke[0]
@@ -117,16 +116,16 @@ const tellMeAJoke = async () => {
         utterance.volume = volumeLevel
         utterance.rate = rateLevel
         utterance.pitch = pitchLevel
-        checkJokeType(joke,utterance)
+        await checkJokeType(joke, utterance)
     } else {
         speech.lang = 'en-US'
         speech.volume = volumeLevel
         speech.rate = rateLevel
         speech.pitch = pitchLevel
         speech.voice = voices[1]
-        checkJokeType(joke,speech)
+        await checkJokeType(joke, speech)
     }
-enableBtns()
+    enableBtns()
 }
 
 
@@ -173,12 +172,12 @@ const checkSelectedVoice = (e) => {
 }
 
 const disableBtns = () => {
-    jokeBtn.disabled = true
-    playBtn.disabled = true
+    jokeBtn.setAttribute('disabled', '')
+    playBtn.setAttribute('disabled', '')
 }
 const enableBtns = () => {
-    jokeBtn.disabled = false
-    playBtn.disabled = false
+    jokeBtn.removeAttribute('disabled')
+    playBtn.removeAttribute('disabled')
 }
 
 //Event Listeners
