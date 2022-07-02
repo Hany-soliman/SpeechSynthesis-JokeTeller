@@ -114,12 +114,10 @@ const tellMeAJoke = async () => {
             synth.speak(initVoices)
             iosFirstTab = false
         })
-        jokeBtn.removeEventListener('click', () => {
-            console.log(iosFirstTab)
-            iosFirstTab = false
-            console.log(iosFirstTab)
-        })
 
+        console.log(iosFirstTab)
+        iosFirstTab = false
+        console.log(iosFirstTab)
     }
     if (isIOS) {
         const utterance = new SpeechSynthesisUtterance();
