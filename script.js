@@ -207,6 +207,7 @@ iosBtn.addEventListener('click', ()=>{
     synth.speak(initIOS)
     initIOS.addEventListener('end', ()=>{
         iosBtn.hidden= true
+        jokeBtn.hidden = false
     })
 })
 customBtn.addEventListener('click', showCustomContainer)
