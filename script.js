@@ -101,7 +101,6 @@ const getJoke = async () => {
             joke = data.joke
         }
         tellMeAJoke(joke)
-        disableBtns()
     } catch (e) {
         throw new Error(`Uh Oh! encountered an error: ${e}`)
     }
