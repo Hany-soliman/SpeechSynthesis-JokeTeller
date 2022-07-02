@@ -1,7 +1,7 @@
 //Globals
 const synth = window.speechSynthesis;
 const speech = new SpeechSynthesisUtterance();
-let voices = []
+let voices
 let selectedVoice = ''
 let volumeLevel = 1;
 let rateLevel = 1;
@@ -27,18 +27,35 @@ const pitch = document.getElementById('Pitch')
 //Fetch all voices and populate the dropDown
 const initVoices = async () => {
     const getVoices = () => {
-        return new Promise(resolve => {
-            window.speechSynthesis.onvoiceschanged = e => {
-                resolve(voices = window.speechSynthesis.getVoices(), selectedVoice = voices[0]);
+        return new Promise((resolve, reject) => {
+            synth.onvoiceschanged = e => {
+                reject(voices = synth.getVoices(), selectedVoice = voices[0]);
             }
         })
     }
     await getVoices();
+    addDropdownOptions()
+};
+
+const loadVoicesWhenAvailable = (onComplete = () => {})=> {
+    const data = synth.getVoices()
+    if (data.length !== 0) {
+        voices = data
+        addDropdownOptions()
+        onComplete()
+    } else {
+        return setTimeout(function () { loadVoicesWhenAvailable(onComplete) }, 100)
+    }
+}
+
+
+//Create the dropDown
+
+const addDropdownOptions =()=>{
     voicesMenu.innerHTML = voices.map(voice => {
         return `<option>${voice.name}</option>`
     }).join('')
-};
-
+}
 //Fetch Joke
 
 const getJoke = async () => {
@@ -153,5 +170,10 @@ speech.addEventListener('end', enableJokeBtn)
 speech.addEventListener('start', disableJokeBtn)
 
 //onLoad
-initVoices().then(r => console.log('voices loaded successfully'))
+initVoices().then(() => {
+    console.log('voices loaded successfully')})
+    .catch(()=>{
+        console.log('voices failed to load successfully')
+        loadVoicesWhenAvailable()
+    })
 
