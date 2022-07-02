@@ -63,22 +63,7 @@ const ios = () => {
     return /iPhone|iPad|iPod/i.test(navigator.userAgent || navigator.vendor || (window.opera && opera.toString() === `[object Opera]`));
 };
 
-//isIOS
 
-const checkJokeType = (joke, type)=>{
-    if (Array.isArray(joke)) {
-        jokeBtn.disabled = true
-        type.text = joke[0]
-        synth.speak(type)
-        setTimeout(() => {
-            type.text = joke[1]
-            synth.speak(type)
-        }, 1000)
-    } else {
-        type.text = joke
-        synth.speak(type)
-    }
-}
 
 //Create the dropDown
 
@@ -95,20 +80,35 @@ const getJoke = async () => {
         const response = await fetch(apiURL)
         let data = await response.json()
         if (data.setup) {
-            joke = [data.setup, data.delivery]
+            joke =  [data.setup, data.delivery]
         } else {
             joke = data.joke
         }
-        tellMeAJoke()
-        disableBtns()
     } catch (e) {
         throw new Error(`Uh Oh! encountered an error: ${e}`)
     }
 }
+//isIOS
 
+const checkJokeType =  (joke, type)=>{
+    if (Array.isArray(joke)) {
+        jokeBtn.disabled = true
+        type.text = joke[0]
+        synth.speak(type)
+        setTimeout(() => {
+            type.text = joke[1]
+            synth.speak(type)
+        }, 1000)
+    } else {
+        type.text = joke
+        synth.speak(type)
+    }
+}
 //Send the joke to the Speech API
 
-const tellMeAJoke = () => {
+const tellMeAJoke = async () => {
+    await getJoke()
+    disableBtns()
     if (isIOS) {
         const utterance = new window.SpeechSynthesisUtterance()
         utterance.voice = selectedVoice
@@ -118,7 +118,6 @@ const tellMeAJoke = () => {
         utterance.rate = rateLevel
         utterance.pitch = pitchLevel
         checkJokeType(joke,utterance)
-        enableBtns()
     } else {
         speech.lang = 'en-US'
         speech.volume = volumeLevel
@@ -127,7 +126,7 @@ const tellMeAJoke = () => {
         speech.voice = voices[1]
         checkJokeType(joke,speech)
     }
-
+enableBtns()
 }
 
 
@@ -183,7 +182,7 @@ const enableBtns = () => {
 }
 
 //Event Listeners
-jokeBtn.addEventListener('click', getJoke)
+jokeBtn.addEventListener('click', tellMeAJoke)
 customBtn.addEventListener('click', showCustomContainer)
 backBtn.addEventListener('click', showJokeContainer)
 voicesMenu.addEventListener('change', checkSelectedVoice)
