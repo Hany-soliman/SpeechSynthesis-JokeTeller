@@ -117,6 +117,7 @@ const tellMeAJoke = async () => {
         })
 
         console.log(iosFirstTab)
+        synth.cancel()
         iosBtn.hidden = true
         iosFirstTab = false
         jokeBtn.hidden = false
