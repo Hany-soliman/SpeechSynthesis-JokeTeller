@@ -24,21 +24,19 @@ const rate = document.getElementById('Rate')
 const pitch = document.getElementById('Pitch')
 
 
-
-
 //Fetch all voices and populate the dropDown
 const initVoices = async () => {
     const getVoices = () => {
         return new Promise(resolve => {
             window.speechSynthesis.onvoiceschanged = e => {
-                resolve(voicesMenu.innerHTML = window.speechSynthesis.getVoices().map(voice => {
-                    return `<option>${voice.name}</option>`
-                }).join(''))
                 resolve(voices = window.speechSynthesis.getVoices(), selectedVoice = voices[0]);
             }
         })
     }
     await getVoices();
+    voicesMenu.innerHTML = voices.map(voice => {
+        return `<option>${voice.name}</option>`
+    }).join('')
 };
 
 //Fetch Joke
@@ -128,11 +126,11 @@ const disableJokeBtn = () => jokeBtn.disabled = true
 const enableJokeBtn = () => jokeBtn.disabled = false
 
 //Event Listeners
-// jokeBtn.addEventListener('click', getJoke)
+jokeBtn.addEventListener('click', getJoke)
 customBtn.addEventListener('click', showCustomContainer)
 backBtn.addEventListener('click', showJokeContainer)
 voicesMenu.addEventListener('change', checkSelectedVoice)
-// playBtn.addEventListener('click', play)
+playBtn.addEventListener('click', play)
 pauseBtn.addEventListener('click', () => {
     synth.pause()
 })
@@ -155,5 +153,5 @@ speech.addEventListener('end', enableJokeBtn)
 speech.addEventListener('start', disableJokeBtn)
 
 //onLoad
-initVoices()
+initVoices().then(r => console.log('voices loaded successfully'))
 
