@@ -2,6 +2,7 @@
 const synth = window.speechSynthesis;
 const speech = new SpeechSynthesisUtterance();
 let voices
+let isIOS = false
 let selectedVoice
 let volumeLevel = 1;
 let rateLevel = 1;
@@ -95,12 +96,13 @@ const tellMeAJoke = (joke) => {
     speech.volume = volumeLevel
     speech.rate = rateLevel
     speech.pitch = pitchLevel
-    // if (ios()) {
-    //     speech.voice = voices[10]
-    //     console.log(speech.voice)
-    //     speech.voiceURI = voices[10].voiceURI
-    // }
-    // speech.voice = voices[1]
+    console.log(isIOS)
+    if (isIOS) {
+        speech.voice = voices[10]
+        console.log(speech.voice)
+        speech.voiceURI = voices[10].voiceURI
+    }
+    speech.voice = voices[1]
     if (Array.isArray(joke)) {
         jokeBtn.disabled = true
         speech.text = joke[0]
@@ -203,5 +205,6 @@ initVoices().then(() => {
 
 if (ios()) {
     loadVoicesWhenAvailable()
+    isIOS = true
 }
 
