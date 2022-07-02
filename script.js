@@ -91,7 +91,6 @@ const getJoke = async () => {
 
 const checkJokeType = (joke, type) => {
     if (Array.isArray(joke)) {
-        jokeBtn.disabled = true
         type.text = joke[0]
         synth.speak(type)
         setTimeout(() => {
