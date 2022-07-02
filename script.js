@@ -4,7 +4,6 @@ const speech = new SpeechSynthesisUtterance();
 let voices
 let joke
 let isIOS = false
-let iosFirstTab = false
 let selectedVoice
 let volumeLevel = 1;
 let rateLevel = 1;
@@ -37,6 +36,7 @@ const initVoices = async () => {
         })
     }
     await getVoices();
+    console.log(voices)
     addDropdownOptions()
 };
 
@@ -48,6 +48,7 @@ const loadVoicesWhenAvailable = (onComplete = () => {
     if (data.length !== 0) {
         voices = data
         selectedVoice = voices[0]
+        console.log('fallback for IOS devices', voices)
         addDropdownOptions()
         onComplete()
     } else {
@@ -215,7 +216,6 @@ speech.addEventListener('end', enableBtns)
 
 
 //onLoad
-
 initVoices().then(() => {
     console.log('voices loaded successfully')
 })
