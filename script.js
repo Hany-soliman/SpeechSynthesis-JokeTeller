@@ -108,11 +108,10 @@ const checkJokeType = (joke, type) => {
 const tellMeAJoke = async () => {
     await getJoke()
     if (isIOS) {
-        const utterance = new window.SpeechSynthesisUtterance()
+        const utterance = new SpeechSynthesisUtterance();
         utterance.voice = voices[10]
         utterance.voiceURI = voices[10].voiceURI
         utterance.lang = voices[10].lang
-        utterance.text = 'Add text to hear it back!'
         utterance.volume = volumeLevel
         utterance.rate = rateLevel
         utterance.pitch = pitchLevel
