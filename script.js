@@ -203,7 +203,6 @@ iosBtn.addEventListener('click', async ()=>{
     initIOS.volume = volumeLevel
     initIOS.rate = rateLevel
     initIOS.pitch = pitchLevel
-    await getJoke()
     checkJokeType(joke, initIOS)
     initIOS.addEventListener('end', ()=>{
         iosBtn.hidden= true
@@ -243,6 +242,7 @@ initVoices().then(() => {
 
 if (ios()) {
     loadVoicesWhenAvailable()
+    await getJoke()
     isIOS = true
     jokeBtn.hidden = true
     iosBtn.hidden = false
