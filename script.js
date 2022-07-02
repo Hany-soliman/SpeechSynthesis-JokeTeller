@@ -27,7 +27,7 @@ const pitch = document.getElementById('Pitch')
 //Fetch all voices and populate the dropDown
 const initVoices = async () => {
     const getVoices = () => {
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
             synth.onvoiceschanged = e => {
                 resolve(voices = synth.getVoices(), selectedVoice = voices[0]);
             }
@@ -48,6 +48,11 @@ const loadVoicesWhenAvailable = (onComplete = () => {})=> {
     }
 }
 
+const ios = () => {
+    if (typeof window === `undefined` || typeof navigator === `undefined`) return false;
+
+    return /iPhone|iPad|iPod/i.test(navigator.userAgent || navigator.vendor || (window.opera && opera.toString() === `[object Opera]`));
+};
 
 //Create the dropDown
 
@@ -170,10 +175,11 @@ speech.addEventListener('end', enableJokeBtn)
 speech.addEventListener('start', disableJokeBtn)
 
 //onLoad
+
 initVoices().then(() => {
     console.log('voices loaded successfully')})
-    .catch(()=>{
-        console.log('voices failed to load successfully')
-        loadVoicesWhenAvailable()
-    })
+
+if(ios){
+    loadVoicesWhenAvailable()
+}
 
