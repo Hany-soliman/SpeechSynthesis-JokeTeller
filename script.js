@@ -2,6 +2,7 @@
 const synth = window.speechSynthesis;
 const speech = new SpeechSynthesisUtterance();
 let voices
+let joke
 let isIOS = false
 let selectedVoice
 let volumeLevel = 1;
@@ -90,7 +91,6 @@ const addDropdownOptions = () => {
 
 const getJoke = async () => {
     const apiURL = 'https://v2.jokeapi.dev/joke/Any'
-    let joke
     try {
         const response = await fetch(apiURL)
         let data = await response.json()
@@ -99,13 +99,7 @@ const getJoke = async () => {
         } else {
             joke = data.joke
         }
-        console.log('before', joke)
-        if(isIOS){
-            console.log('after',joke)
-            setTimeout(() => 2000)
-            console.log('after buffer')
-        }
-        tellMeAJoke(joke)
+        tellMeAJoke()
         disableBtns()
     } catch (e) {
         throw new Error(`Uh Oh! encountered an error: ${e}`)
@@ -114,7 +108,7 @@ const getJoke = async () => {
 
 //Send the joke to the Speech API
 
-const tellMeAJoke = (joke) => {
+const tellMeAJoke = () => {
     if (isIOS) {
         const utterance = new window.SpeechSynthesisUtterance()
         utterance.voice = selectedVoice
@@ -124,6 +118,7 @@ const tellMeAJoke = (joke) => {
         utterance.rate = rateLevel
         utterance.pitch = pitchLevel
         checkJokeType(joke,utterance)
+        enableBtns()
     } else {
         speech.lang = 'en-US'
         speech.volume = volumeLevel
