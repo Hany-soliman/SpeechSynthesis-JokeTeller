@@ -82,6 +82,7 @@ const getJoke = async () => {
         } else {
             joke = data.joke
         }
+        console.log(joke)
         tellMeAJoke(joke)
         disableBtns()
     } catch (e) {
@@ -98,9 +99,10 @@ const tellMeAJoke = (joke) => {
     speech.pitch = pitchLevel
     console.log(isIOS)
     if (isIOS) {
-        speech.voice = voices[4]
+        speech.voice = selectedVoice
         console.log(speech.voice)
-        speech.voiceURI = voices[4].voiceURI
+        speech.voiceURI = selectedVoice.voiceURI
+        speech.lang = selectedVoice.lang
     }
     speech.voice = voices[1]
     if (Array.isArray(joke)) {
