@@ -111,7 +111,7 @@ const tellMeAJoke = async () => {
         jokeBtn.addEventListener('click', () => {
             console.log('clicked')
             utterance.text = 'Hello, world!'
-            utterance.speak(utterance)
+            synth.speak(utterance)
         }, {once: true})
         utterance.voice = voices[10]
         utterance.voiceURI = voices[10].voiceURI
