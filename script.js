@@ -29,7 +29,7 @@ const initVoices = async () => {
     const getVoices = () => {
         return new Promise((resolve, reject) => {
             synth.onvoiceschanged = e => {
-                reject(voices = synth.getVoices(), selectedVoice = voices[0]);
+                resolve(voices = synth.getVoices(), selectedVoice = voices[0]);
             }
         })
     }
