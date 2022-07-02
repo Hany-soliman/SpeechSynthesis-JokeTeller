@@ -108,8 +108,10 @@ const tellMeAJoke = async () => {
     await getJoke()
     if (isIOS) {
         const utterance = new SpeechSynthesisUtterance();
-        utterance.text = ''
-        utterance.speak(utterance)
+        jokeBtn.addEventListener('click', () => {
+            utterance.text = 'Hello, world!'
+            utterance.speak(utterance)
+        }, {once: true})
         utterance.voice = voices[10]
         utterance.voiceURI = voices[10].voiceURI
         utterance.lang = voices[10].lang
@@ -207,7 +209,6 @@ pitch.addEventListener('input', (e) => {
 })
 speech.addEventListener('start', disableBtns)
 speech.addEventListener('end', enableBtns)
-
 
 
 //onLoad
