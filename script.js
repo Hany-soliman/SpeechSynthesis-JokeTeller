@@ -58,6 +58,7 @@ const loadVoicesWhenAvailable = (onComplete = () => {
 
 const ios = () => {
     if (typeof window === `undefined` || typeof navigator === `undefined`) return false;
+    console.log(navigator.userAgent, navigator.vendor)
     return /iPhone|iPad|iPod/i.test(navigator.userAgent || navigator.vendor || (window.opera && opera.toString() === `[object Opera]`));
 };
 
@@ -95,7 +96,7 @@ const tellMeAJoke = (joke) => {
     speech.volume = volumeLevel
     speech.rate = rateLevel
     speech.pitch = pitchLevel
-    if (ios) {
+    if (ios()) {
         speech.voice = voices[10]
     }
     speech.voice = voices[1]
