@@ -64,22 +64,20 @@ const ios = () => {
 
 //isIOS
 
-const checkDeviceType = ()=>{
-    if (isIOS) {
-        speech.voice = selectedVoice
-        speech.voiceURI = selectedVoice.voiceURI
-        speech.lang = selectedVoice.lang
-        speech.volume = volumeLevel
-        speech.rate = rateLevel
-        speech.pitch = pitchLevel
-        synth.speak(speech)
+const checkJokeType = (joke, type)=>{
+    if (Array.isArray(joke)) {
+        disableBtns()
+        type.text = joke[0]
+        synth.speak(type)
+        setTimeout(() => {
+            type.text = joke[1]
+            synth.speak(type)
+        }, 1000)
     } else {
-        speech.lang = 'en-US'
-        speech.volume = volumeLevel
-        speech.rate = rateLevel
-        speech.pitch = pitchLevel
-        speech.voice = voices[1]
+        type.text = joke
+        synth.speak(type)
     }
+    enableBtns()
 }
 
 //Create the dropDown
@@ -112,18 +110,22 @@ const getJoke = async () => {
 //Send the joke to the Speech API
 
 const tellMeAJoke = (joke) => {
-    checkDeviceType()
-    if (Array.isArray(joke)) {
-        jokeBtn.disabled = true
-        speech.text = joke[0]
-        synth.speak(speech)
-        setTimeout(() => {
-            speech.text = joke[1]
-            synth.speak(speech)
-        }, 1000)
+    if (isIOS) {
+        const utterance = new window.SpeechSynthesisUtterance()
+        utterance.voice = selectedVoice
+        utterance.voiceURI = selectedVoice.voiceURI
+        utterance.lang = selectedVoice.lang
+        utterance.volume = volumeLevel
+        utterance.rate = rateLevel
+        utterance.pitch = pitchLevel
+        checkJokeType(joke,utterance)
     } else {
-        speech.text = joke
-        synth.speak(speech)
+        speech.lang = 'en-US'
+        speech.volume = volumeLevel
+        speech.rate = rateLevel
+        speech.pitch = pitchLevel
+        speech.voice = voices[1]
+        checkJokeType(joke,speech)
     }
 
 }
