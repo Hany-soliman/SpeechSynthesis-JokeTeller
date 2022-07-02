@@ -4,7 +4,7 @@ const speech = new SpeechSynthesisUtterance();
 let voices
 let joke
 let isIOS = false
-let iosFirstTab = true
+let iosFirstTab = false
 let selectedVoice
 let volumeLevel = 1;
 let rateLevel = 1;
@@ -109,16 +109,16 @@ const tellMeAJoke = async () => {
     await getJoke()
     if(iosFirstTab){
         console.log('clicked')
-        const utterance = new SpeechSynthesisUtterance()
-        utterance.voice = voices[10]
-        utterance.voiceURI = voices[10].voiceURI
-        utterance.lang = voices[10].lang
-        utterance.volume = volumeLevel
-        utterance.rate = rateLevel
-        utterance.pitch = pitchLevel
-        utterance.text = 'Hello, You look beautiful today! Haha!'
-        synth.speak(utterance)
-        return iosFirstTab = false
+        const init = new SpeechSynthesisUtterance()
+        init.voice = voices[10]
+        init.voiceURI = voices[10].voiceURI
+        init.lang = voices[10].lang
+        init.volume = volumeLevel
+        init.rate = rateLevel
+        init.pitch = pitchLevel
+        init.text = 'Hello, You look beautiful today! Haha!'
+        synth.speak(init)
+         iosFirstTab = false
     }
     if (isIOS) {
         const utterance = new SpeechSynthesisUtterance();
@@ -230,5 +230,6 @@ initVoices().then(() => {
 if (ios()) {
     loadVoicesWhenAvailable()
     isIOS = true
+    iosFirstTab = true
 }
 
