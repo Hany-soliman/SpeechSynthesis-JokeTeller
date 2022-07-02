@@ -109,6 +109,7 @@ const tellMeAJoke = async () => {
     if (isIOS) {
         const utterance = new SpeechSynthesisUtterance();
         jokeBtn.addEventListener('click', () => {
+            console.log('clicked')
             utterance.text = 'Hello, world!'
             utterance.speak(utterance)
         }, {once: true})
