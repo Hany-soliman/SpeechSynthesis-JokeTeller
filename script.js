@@ -112,8 +112,9 @@ const tellMeAJoke = async () => {
         initVoices.text = 'Hello, You look beautiful today! Ha Ha!'
         jokeBtn.addEventListener('click', () => {
             synth.speak(initVoices)
+            iosFirstTab = false
         })
-        return iosFirstTab = false
+
     }
     if (isIOS) {
         const utterance = new SpeechSynthesisUtterance();
