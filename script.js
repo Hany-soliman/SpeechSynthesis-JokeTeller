@@ -41,7 +41,7 @@ const loadVoicesWhenAvailable = (onComplete = () => {})=> {
     const data = synth.getVoices()
     if (data.length !== 0) {
         voices = data
-        selectedVoice = voices[0]
+        selectedVoice = voices[1]
         addDropdownOptions()
         onComplete()
     } else {
@@ -86,11 +86,12 @@ const getJoke = async () => {
 //Send the joke to the Speech API
 
 const tellMeAJoke = (joke) => {
-    speech.lang = 'en'
+    speech.lang = 'en-US'
     speech.voice = voices[1]
     speech.volume = volumeLevel
     speech.rate = rateLevel
     speech.pitch = pitchLevel
+    speech.voiceURI = 'native'
     if (Array.isArray(joke)) {
         jokeBtn.disabled = true
         speech.text = joke[0]
