@@ -2,7 +2,7 @@
 const synth = window.speechSynthesis;
 const speech = new SpeechSynthesisUtterance();
 let voices
-let selectedVoice = ''
+let selectedVoice
 let volumeLevel = 1;
 let rateLevel = 1;
 let pitchLevel = 1;
@@ -58,7 +58,6 @@ const loadVoicesWhenAvailable = (onComplete = () => {
 
 const ios = () => {
     if (typeof window === `undefined` || typeof navigator === `undefined`) return false;
-    console.log(navigator.userAgent, navigator.vendor)
     return /iPhone|iPad|iPod/i.test(navigator.userAgent || navigator.vendor || (window.opera && opera.toString() === `[object Opera]`));
 };
 
@@ -96,12 +95,12 @@ const tellMeAJoke = (joke) => {
     speech.volume = volumeLevel
     speech.rate = rateLevel
     speech.pitch = pitchLevel
-    if (ios()) {
-        speech.voice = voices[10]
-        console.log(speech.voice)
-        speech.voiceURI = voices[10].voiceURI
-    }
-    speech.voice = voices[1]
+    // if (ios()) {
+    //     speech.voice = voices[10]
+    //     console.log(speech.voice)
+    //     speech.voiceURI = voices[10].voiceURI
+    // }
+    // speech.voice = voices[1]
     if (Array.isArray(joke)) {
         jokeBtn.disabled = true
         speech.text = joke[0]
