@@ -97,7 +97,7 @@ const tellMeAJoke = (joke) => {
     speech.rate = rateLevel
     speech.pitch = pitchLevel
     if (ios()) {
-        speech.voice = voices[10]
+        speech.voice = voices[8]
     }
     speech.voice = voices[1]
     if (Array.isArray(joke)) {
