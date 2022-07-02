@@ -204,6 +204,9 @@ iosBtn.addEventListener('click', async ()=>{
     initIOS.rate = rateLevel
     initIOS.pitch = pitchLevel
     checkJokeType(joke, initIOS)
+    initIOS.addEventListener('start', ()=>{
+        iosBtn.disabled = true
+    })
     initIOS.addEventListener('end', ()=>{
         iosBtn.hidden= true
         jokeBtn.hidden = false
