@@ -46,7 +46,7 @@ const loadVoicesWhenAvailable = (onComplete = () => {
     const data = synth.getVoices()
     if (data.length !== 0) {
         voices = data
-        selectedVoice = voices[10]
+        selectedVoice = voices[0]
         addDropdownOptions()
         onComplete()
     } else {
@@ -107,25 +107,26 @@ const checkJokeType = (joke, type) => {
 
 const tellMeAJoke = async () => {
     await getJoke()
-    disableBtns()
     if (isIOS) {
         const utterance = new window.SpeechSynthesisUtterance()
-        utterance.voice = selectedVoice
-        utterance.voiceURI = selectedVoice.voiceURI
-        utterance.lang = selectedVoice.lang
+        utterance.voice = voices[10]
+        utterance.voiceURI = voices[10].voiceURI
+        utterance.lang = voices[10].lang
+        utterance.text = ''
         utterance.volume = volumeLevel
         utterance.rate = rateLevel
         utterance.pitch = pitchLevel
-        await checkJokeType(joke, utterance)
+        checkJokeType(joke, utterance)
+        utterance.addEventListener('start', disableBtns)
+        utterance.addEventListener('end', enableBtns)
     } else {
         speech.lang = 'en-US'
         speech.volume = volumeLevel
         speech.rate = rateLevel
         speech.pitch = pitchLevel
         speech.voice = voices[1]
-        await checkJokeType(joke, speech)
+        checkJokeType(joke, speech)
     }
-    enableBtns()
 }
 
 
@@ -172,12 +173,12 @@ const checkSelectedVoice = (e) => {
 }
 
 const disableBtns = () => {
-    jokeBtn.setAttribute('disabled', '')
-    playBtn.setAttribute('disabled', '')
+    jokeBtn.disabled = true
+    playBtn.disabled = true
 }
 const enableBtns = () => {
-    jokeBtn.removeAttribute('disabled')
-    playBtn.removeAttribute('disabled')
+    jokeBtn.disabled = false
+    playBtn.disabled = false
 }
 
 //Event Listeners
@@ -204,8 +205,10 @@ rate.addEventListener('input', (e) => {
 pitch.addEventListener('input', (e) => {
     pitchLevel = +e.target.value
 })
-speech.addEventListener('end', enableBtns)
 speech.addEventListener('start', disableBtns)
+speech.addEventListener('end', enableBtns)
+
+
 
 //onLoad
 
