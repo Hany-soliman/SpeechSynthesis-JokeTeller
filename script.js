@@ -112,9 +112,9 @@ const tellMeAJoke = async () => {
         const initVoices = new SpeechSynthesisUtterance()
         jokeBtn.addEventListener('click', () => {
             checkJokeType(joke, initVoices)
-            synth.speak(initVoices)
-        })
 
+        })
+        synth.speak(initVoices)
         console.log(iosFirstTab)
         iosFirstTab = false
         console.log(iosFirstTab)
