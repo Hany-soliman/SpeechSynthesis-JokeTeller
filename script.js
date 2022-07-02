@@ -66,6 +66,10 @@ const ios = () => {
     return /iPhone|iPad|iPod/i.test(navigator.userAgent || navigator.vendor || (window.opera && opera.toString() === `[object Opera]`));
 };
 
+const android = () => {
+    if (typeof window === `undefined` || typeof navigator === `undefined`) return false;
+    return /Android/i.test(navigator.userAgent || navigator.vendor || (window.opera && opera.toString() === `[object Opera]`));
+};
 
 //Create the dropDown
 
@@ -217,7 +221,7 @@ speech.addEventListener('end', enableBtns)
 
 
 //onLoad
-if (ios()) {
+if (ios() || android()) {
     loadVoicesWhenAvailable()
     isIOS = true
     console.log('ios loaded successfully')
