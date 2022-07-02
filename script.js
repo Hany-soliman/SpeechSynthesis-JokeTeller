@@ -107,11 +107,6 @@ const checkJokeType = (joke, type) => {
 
 const tellMeAJoke = async () => {
     await getJoke()
-    if(iosFirstTab){
-        console.log('clicked')
-play()
-         iosFirstTab = false
-    }
     if (isIOS) {
         const utterance = new SpeechSynthesisUtterance();
         utterance.voice = voices[10]
@@ -186,7 +181,14 @@ const enableBtns = () => {
 }
 
 //Event Listeners
-jokeBtn.addEventListener('click', tellMeAJoke)
+jokeBtn.addEventListener('click', ()=>{
+    if(iosFirstTab){
+        console.log('clicked')
+        play()
+        iosFirstTab = false
+    }
+    tellMeAJoke()
+})
 customBtn.addEventListener('click', showCustomContainer)
 backBtn.addEventListener('click', showJokeContainer)
 voicesMenu.addEventListener('change', checkSelectedVoice)
