@@ -4,6 +4,7 @@ const speech = new SpeechSynthesisUtterance();
 let voices
 let joke
 let isIOS = false
+let iosFirstTab = true
 let selectedVoice
 let volumeLevel = 1;
 let rateLevel = 1;
@@ -106,10 +107,13 @@ const checkJokeType = (joke, type) => {
 
 const tellMeAJoke = async () => {
     await getJoke()
+    if(isIOS && iosFirstTab){
+        const utterance = new SpeechSynthesisUtterance();
+        utterance.text = 'Hello, You look beautiful today! Haha!'
+        synth.speak(utterance)
+    }
     if (isIOS) {
         const utterance = new SpeechSynthesisUtterance();
-        utterance.text = ''
-        synth.speak(utterance)
         utterance.voice = voices[10]
         utterance.voiceURI = voices[10].voiceURI
         utterance.lang = voices[10].lang
