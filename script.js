@@ -108,11 +108,12 @@ const checkJokeType = (joke, type) => {
 const tellMeAJoke = async () => {
     await getJoke()
     if(iosFirstTab){
-        const utterance = new SpeechSynthesisUtterance()
-        utterance.text = 'Hello, You look beautiful today! Ha Ha!'
+        const initVoices = new SpeechSynthesisUtterance()
+        initVoices.text = 'Hello, You look beautiful today! Ha Ha!'
         jokeBtn.addEventListener('click', () => {
-            synth.speak(utterance)
+            synth.speak(initVoices)
         })
+        return iosFirstTab = false
     }
     if (isIOS) {
         const utterance = new SpeechSynthesisUtterance();
