@@ -14,7 +14,6 @@ let pitchLevel = 1;
 const jokeContainer = document.getElementById('joke-container')
 const customContainer = document.getElementById('user-container')
 const jokeBtn = document.getElementById('joke-button')
-const iosBtn = document.getElementById('joke-buttonIOS')
 const customBtn = document.getElementById('custom-button')
 const backBtn = document.getElementById('back-btn')
 const voicesMenu = document.getElementById('voice-select')
@@ -220,23 +219,19 @@ if (ios()) {
     loadVoicesWhenAvailable()
     isIOS = true
     iosFirstTab = true
-    jokeBtn.hidden = true
-    iosBtn.hidden = false
 }
 
 const firstTab = ()=>{
     if (iosFirstTab) {
         console.log(iosFirstTab)
         const initVoices = new SpeechSynthesisUtterance()
-        iosBtn.addEventListener('click', () => {
+        jokeBtn.addEventListener('click', () => {
             checkJokeType(joke, initVoices)
             initVoices.addEventListener('start', disableBtns)
             initVoices.addEventListener('end', enableBtns)
         })
         console.log(iosFirstTab)
-        iosBtn.remove()
         iosFirstTab = false
-        jokeBtn.hidden = false
         console.log(iosFirstTab)
     }
 }
